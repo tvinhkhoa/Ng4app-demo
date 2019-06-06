@@ -1,0 +1,56 @@
+<!-- inventions.component.html -->
+<!-- bind data using curly braces to the data in app.component.ts -->
+<!--
+<h2> {{ invention.name }} </h2>
+<h3> {{ invention.inventor }} </h3>
+<h3> {{ invention.year }} </h3>
+-->
+
+<ul>
+<li *ngFor="let i of inventions">
+  <div class="invention">
+    <span> <b> Name: </b>  {{ i.name }}  || </span>
+    <span>  <b> Inventor: </b>  {{ i.inventor }}  || </span>
+    <span>  <b> Year: </b> {{ i.year }}  </span>
+    <span> <button class="btn btn-primary" (click)="details(i.id)"> Details </button> </span>
+  </div>
+</li>
+</ul>
+
+<hr>
+
+<!-- <label> {{ nameModel }} </label> -->
+<div [ngClass]="'invention-creator'">
+  <div>
+    <input [(ngModel)]="nameModel" [ngClass]="'form-control'" placeholder="enter name">
+  </div>
+  <!-- <label> {{ inventorModel }} </label> -->
+  <div>
+    <input type="text" [(ngModel)]="inventorModel" [ngClass]="'form-control'" placeholder="enter inventor ">
+  </div>
+  <!-- <label> {{ yearModel }} </label> -->
+  <div>
+    <input [(ngModel)]="yearModel" [ngClass]="'form-control'" placeholder="year">
+  </div>
+
+<br>
+
+<!-- call createInvention() function from component on click of button -->
+<button [ngClass]="'btn btn-primary'" (click)="createInvention()"> Create invention </button>
+</div>
+
+<!-- Validation input -->
+<form (ngSubmit)="submit(formName)" [formGroup]="formName">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-12">
+        <input formControlName="numberInput" type="text">
+      </div>
+    </div>
+  </div>
+  <small class="form-text text-muted"
+    *ngIf="formName.get('numberInput').touched && formName.get('numberInput').hasError('required')">This field is required!</small>
+  <small class="form-text text-muted"
+    *ngIf="formName.get('numberInput').touched && formName.get('numberInput').hasError('invalidNumber')">Numbers accepted only!</small>
+  <button type="submit" class="btn btn-primary" [disabled]="formName.invalid">Submit</button>
+</form>
